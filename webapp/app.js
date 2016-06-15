@@ -14,7 +14,7 @@ var
   body_parser     = require( 'body-parser' ),
   method_override = require( 'method-override' ),
   error_handler   = require( 'errorhandler' ),
-  serve_static    = require( 'serve-static' )
+  serve_static    = require( 'serve-static' ),
 ;
 
 app.use( body_parser.urlencoded({ extended : true }));
@@ -35,7 +35,6 @@ if ( env === 'production' ) {
 }
 
 routes.configRoutes( app, server );
-
 accomodation.connect( server );
 
 server.listen( 3000 );

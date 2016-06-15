@@ -67,8 +67,7 @@ constructObj = function ( obj_type, obj_map, call_back ) {
           function ( outer_error, collection ) {
             var options_map = { w : 1 };
             collection.insert (
-              obj_map,
-              options_map,
+              obj_map, options_map,
               function ( inner_error, result_map ) {
                 call_back( result_map );
               }

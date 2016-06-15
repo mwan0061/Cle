@@ -1,5 +1,5 @@
 /*
- * lib_accomodation.js
+ * test-accomodation.js
  * Unit test suite for lib/accomodation.js
  *
  * Please run using /nodeunit <this_file>/
@@ -12,8 +12,6 @@
 */
 /*global $, cle*/
 // third-party modules and globals
-global.jQuery = require( 'jquery' );
-global.TAFFY  = require( '../public/js/jq/jquery.event.gevent-0.1.9.js' );
 // project modules and globals
 global.cle = null;
 require( '../lib/accomodation.js' );

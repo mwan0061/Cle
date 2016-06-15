@@ -14,8 +14,7 @@
 var
   configRoutes,
   crud          = require( './crud' ),
-  makeId        = crud.makeMongoId,
-  handlerMap    = {};
+  makeId        = crud.makeMongoId;
 // ------------ END MODULE SCOPE VARIABLES -------------
 
 // --------------- BEGIN PUBLIC METHODS ----------------
@@ -71,18 +70,6 @@ configRoutes = function ( app, server ) {
     );
   });
 };
-
-addHandler = function( handler ) {
-  handler.hasOwnProperty( connect ) {
-    handler.connect( server );
-  }
-  for ( route in handler.appGetRouteList ) {
-      app.get( '/api/' + hander.objName + route, handler.appGetRouteList[route] );
-  }
-  for ( route in handler.appPostRouteList ) {
-      app.post( '/api/' + hander.objName + route, handler.appPostRouteList[route] );
-  }
-}
 
 module.exports = { configRoutes : configRoutes };
 // ---------------- END PUBLIC METHODS -----------------
