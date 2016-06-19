@@ -54,7 +54,7 @@ checkType = function ( obj_type ) {
 constructObj = function ( obj_type, obj_map, call_back ) {
   var type_check_map = checkType ( obj_type );
   if ( type_check_map ) {
-    callback( type_check_map );
+    call_back( type_check_map );
     return;
   }
 
@@ -88,7 +88,7 @@ constructObj = function ( obj_type, obj_map, call_back ) {
 readObj = function ( obj_type, find_map, options_map, call_back ) {
   var type_check_map = checkType( obj_type );
   if ( type_check_map ) {
-    callback( type_check_map );
+    call_back( type_check_map );
     return;
   }
 
@@ -107,7 +107,7 @@ readObj = function ( obj_type, find_map, options_map, call_back ) {
 updateObj = function ( obj_type, find_map, set_map, call_back ) {
   var type_check_map = checkType( obj_type );
   if ( type_check_map ) {
-    callback ( type_check_map );
+    call_back ( type_check_map );
     return;
   }
 
@@ -142,7 +142,7 @@ updateObj = function ( obj_type, find_map, set_map, call_back ) {
 destroyObj = function ( obj_type, find_map, call_back ) {
   var type_check_map = checkType( obj_type );
   if ( type_check_map ) {
-    callback( type_check_map );
+    call_back( type_check_map );
     return;
   }
 

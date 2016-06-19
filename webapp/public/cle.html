@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  cle.html
+  cle browser document
+-->
+
+<html>
+<head>
+  <!-- ie9+ rendering support for latest standards -->
+  <meta http-equiv="Content-Type" content="text/html;
+    charset=ISO-8859-1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>Cle</title>
+
+  <!-- third-party stylesheets -->
+
+  <!-- our stylesheets -->
+
+  <!-- third-party javascript -->
+  <script src="/socket.io/socket.io.js"           ></script>
+  <script src="js/jq/taffydb-2.6.2.js"            ></script>
+  <script src="js/jq/jquery-1.9.1.js"             ></script>
+  <script src="js/jq/jquery.uriAnchor-1.1.3.js"   ></script>
+  <script src="js/jq/jquery.event.gevent-0.1.9.js"></script>
+  <script src="js/jq/jquery.event.ue-0.3.2.js"    ></script>
+
+  <!-- our javascript -->
+  <script src="js/cle.js"       ></script>
+  <script src="js/cle.util.js"  ></script>
+  <script src="js/cle.data.js"  ></script>
+  <script src="js/cle.model.js" ></script>
+  <script src="js/cle.model.accomodation.js" ></script>
+  <script>
+    $(function () { cle.initModule( $() ); });
+    $(function () { cle.model.accomodation.getNextPage(); });
+  </script>
+
+</head>
+<body>
+<div id="spa"></div>
+</body>
+</html>

@@ -12,10 +12,33 @@
 // ----------- BEGIN MODULE SCOPE VARIABLES ------------
 'use strict';
 var
-  configRoutes,
+  configRoutes, parseMongoObjectId,
   crud          = require( './crud' ),
   makeId        = crud.makeMongoId;
 // ------------ END MODULE SCOPE VARIABLES -------------
+
+// --------------- BEGIN UTILITY METHODS ---------------
+parseMongoObjectId = function ( query ) {
+  var
+    searchExpr = /ObjectId\((.*)\)/,
+    searchResult, key, objectId;
+
+  for ( key in query ) {
+    if ( typeof query[key] === 'string' ) {
+      searchResult = searchExpr.exec( query[key] );
+      if ( searchResult !== undefined ) {
+        objectId = searchResult[1];
+      }
+      query[key] = makeId( objectId );
+    }
+    else {
+      query[key] = parseMongoObjectId ( query[key] );
+    }
+  }
+
+  return query;
+};
+// ---------------- END UTILITY METHODS ----------------
 
 // --------------- BEGIN PUBLIC METHODS ----------------
 configRoutes = function ( app, server ) {
@@ -31,8 +54,28 @@ configRoutes = function ( app, server ) {
   app.get( '/api/:obj_type/list', function ( request, response ) {
     crud.read(
       request.params.obj_type,
-      {}, {},
-      function ( map_list ) { response.send( map_list ); }
+      {},
+      { limit : parseInt(request.query.limit),
+        skip  : parseInt(request.query.skp),
+        sort  : request.query.sort
+      },
+      function ( map_list ) {
+        response.send( map_list );
+      }
+    );
+  });
+
+  app.post( '/api/:obj_type/list', function ( request, response ) {
+    crud.read(
+      request.params.obj_type,
+      parseMongoObjectId( request.body ),
+      { limit : parseInt(request.query.limit),
+        skip  : parseInt(request.query.skp),
+        sort  : request.query.sort
+      },
+      function ( map_list ) {
+        response.send( map_list );
+      }
     );
   });
 
