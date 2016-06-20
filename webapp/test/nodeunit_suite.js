@@ -44,19 +44,19 @@ var testAccomodation = function ( test ) {
 
   test.expect( 1 );
 
-  on_new_page = function () {
+  on_new_page = function ( event ) {
     accomodation_db = cle.model.accomodation.getDB();
-    test.ok( accomodation_db().count() == 2, 'get accomodation page' );
+    test.ok( accomodation_db().count() == arguments.length - 1,
+            'get accomodation page' );
+    cle.model.accomodation.clearDB();
     $defer.resolve();
   };
+  $defer.done( test.done );
 
   $t = $('<div/>');
   $.gevent.subscribe( $t, 'cle-new-accomodation-page-received', on_new_page );
-
   cle.initModule();
   cle.model.accomodation.getNextPage();
-
-  $defer.done( test.done );
 }
 
 module.exports = { testAccomodation : testAccomodation };

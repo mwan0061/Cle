@@ -23,7 +23,7 @@ cle.model.accomodation = (function () {
     },
 
     accomodationProto, makeAccomodationObj,
-  	connect, getNextPage, getDB,
+  	connect, getNextPage, getDB, clearDB,
   	initModule;
 
   // The accomodation object API
@@ -46,8 +46,7 @@ cle.model.accomodation = (function () {
   //   * css_map - a map of attributes used for ...
   //     presentation.
   //
-  accomodationProto = {
-  };
+  accomodationProto = {};
 
   makeAccomodationObj = function ( accomodation_map ) {
     var
@@ -67,40 +66,32 @@ cle.model.accomodation = (function () {
     return accm;
   };
 
-  connect = function () {
-    var sio = cle.data.getSio( '/accomodation' );
-  };
+  connect = function () { var sio = cle.data.getSio( '/accomodation' ); };
 
 	getNextPage = function ( id ) {
-    var
-      id = typeof id === 'undefined' ? '000000000000000000000000' : id,
-      accomodation_page = [];
+    var id = typeof id === 'undefined' ? '000000000000000000000000' : id;
 
 	  $.postJSON( '/api/accomodation/list/?limit=5&skip=0&sort=_id',
       { "_id" : { "$gt" : "ObjectId(" + id + ")" } },
       function( data ) {
-  		  $.each( data, function( index, item ) {
-          accomodation_page.push( makeAccomodationObj( item ) );
-  		  });
         $.gevent.publish( 'cle-new-accomodation-page-received',
-          { accomodation_page : accomodation_page }
-        );
+                          data.map( makeAccomodationObj ) );
   		},
-      function( jqXHR, textStatus, errorThrown ) {
-        console.log(errorThrown);
-      }
+      function( jqXHR, textStatus, errorThrown ) { console.log(errorThrown); }
     );
 	};
 
   getDB = function () { return stateMap.db; };
 
-  initModule = function () {
-  };
+  clearDB = function () { stateMap.db = TAFFY(); };
+
+  initModule = function () {};
 
   return {
     initModule	: initModule,
     connect     : connect,
     getNextPage : getNextPage,
-    getDB       : getDB
+    getDB       : getDB,
+    clearDB     : clearDB
   };
 }());

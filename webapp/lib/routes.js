@@ -12,7 +12,7 @@
 // ----------- BEGIN MODULE SCOPE VARIABLES ------------
 'use strict';
 var
-  configRoutes, parseMongoObjectId,
+  configRoutes, parseMongoObjectId, parseQueryStr,
   crud          = require( './crud' ),
   makeId        = crud.makeMongoId;
 // ------------ END MODULE SCOPE VARIABLES -------------
@@ -20,24 +20,26 @@ var
 // --------------- BEGIN UTILITY METHODS ---------------
 parseMongoObjectId = function ( query ) {
   var
-    searchExpr = /ObjectId\((.*)\)/,
-    searchResult, key, objectId;
+    searchExpr = /^ObjectId\([A-Fa-f0-9]{24}\)$/,
+    key, val, test;
 
   for ( key in query ) {
-    if ( typeof query[key] === 'string' ) {
-      searchResult = searchExpr.exec( query[key] );
-      if ( searchResult !== undefined ) {
-        objectId = searchResult[1];
-      }
-      query[key] = makeId( objectId );
-    }
-    else {
-      query[key] = parseMongoObjectId ( query[key] );
-    }
+    val = query[key];
+    test = typeof val === 'string' ? val.match( searchExpr ) : null;
+    if ( test ) { query[key] = makeId( test[0] ); }
+    else { query[key] = parseMongoObjectId ( query[key] ); }
   }
 
   return query;
 };
+
+parseQueryStr = function ( req_query ) {
+  return {
+    limit : parseInt(req_query.limit),
+    skip  : parseInt(req_query.skp),
+    sort  : req_query.sort
+  };
+}
 // ---------------- END UTILITY METHODS ----------------
 
 // --------------- BEGIN PUBLIC METHODS ----------------
@@ -55,13 +57,8 @@ configRoutes = function ( app, server ) {
     crud.read(
       request.params.obj_type,
       {},
-      { limit : parseInt(request.query.limit),
-        skip  : parseInt(request.query.skp),
-        sort  : request.query.sort
-      },
-      function ( map_list ) {
-        response.send( map_list );
-      }
+      parseQueryStr( request.query ),
+      function ( map_list ) { response.send( map_list ); }
     );
   });
 
@@ -69,13 +66,8 @@ configRoutes = function ( app, server ) {
     crud.read(
       request.params.obj_type,
       parseMongoObjectId( request.body ),
-      { limit : parseInt(request.query.limit),
-        skip  : parseInt(request.query.skp),
-        sort  : request.query.sort
-      },
-      function ( map_list ) {
-        response.send( map_list );
-      }
+      parseQueryStr( request.query ),
+      function ( map_list ) { response.send( map_list ); }
     );
   });
 

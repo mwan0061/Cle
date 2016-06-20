@@ -31,7 +31,13 @@
   <script src="js/cle.model.js" ></script>
   <script src="js/cle.model.accomodation.js" ></script>
   <script>
-    $(function () { cle.initModule( $() ); });
+    $(function () {
+      try {
+        cle.initModule( $() );
+      }
+      catch ( e ) {
+      }
+    });
     $(function () { cle.model.accomodation.getNextPage(); });
   </script>
 
