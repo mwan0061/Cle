@@ -34,29 +34,29 @@ require( '../public/js/cle.js' );
 require( '../public/js/cle.util.js' );
 require( '../public/js/cle.data.js' );
 require( '../public/js/cle.model.js' );
-require( '../public/js/cle.model.accomodation.js' );
+require( '../public/js/cle.model.accommodation.js' );
 
-var testAccomodation = function ( test ) {
+var testGetAPage = function ( test ) {
   var
-    accomodation_db, $t,
+    db, $t,
     $defer = $.Deferred(),
     on_new_page;
 
   test.expect( 1 );
 
   on_new_page = function ( event ) {
-    accomodation_db = cle.model.accomodation.getDB();
-    test.ok( accomodation_db().count() == arguments.length - 1,
-            'get accomodation page' );
-    cle.model.accomodation.clearDB();
+    db = cle.model.accommodation.getDB();
+    test.ok( db().count() == arguments.length - 1,
+            'get a page' );
+    cle.model.accommodation.clearDB();
     $defer.resolve();
   };
   $defer.done( test.done );
 
   $t = $('<div/>');
-  $.gevent.subscribe( $t, 'cle-new-accomodation-page-received', on_new_page );
+  $.gevent.subscribe( $t, 'cle-new-a-page-received', on_new_page );
   cle.initModule();
-  cle.model.accomodation.getNextPage();
+  cle.model.accommodation.getNextPage();
 }
 
-module.exports = { testAccomodation : testAccomodation };
+module.exports = { testGetAPage : testGetAPage };

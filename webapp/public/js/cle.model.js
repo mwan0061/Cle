@@ -10,16 +10,12 @@
   white  : true
 */
 /*global TAFFY, $, cle */
-// $.gevent.publish( 'spa-login', [ stateMap.user ] );
-// stateMap.people_db      = TAFFY();
-// stateMap.people_db.insert( user );
-// stateMap.people_db({ cid : person.cid }).remove();
 cle.model = (function () {
   var
     initModule;
 
   initModule = function () {
-    cle.model.accomodation.initModule();
+    cle.model.accommodation.initModule();
   };
 
   return {

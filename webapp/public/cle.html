@@ -29,16 +29,15 @@
   <script src="js/cle.util.js"  ></script>
   <script src="js/cle.data.js"  ></script>
   <script src="js/cle.model.js" ></script>
-  <script src="js/cle.model.accomodation.js" ></script>
+  <script src="js/cle.model.accommodation.js" ></script>
   <script>
-    $(function () {
-      try {
-        cle.initModule( $() );
-      }
-      catch ( e ) {
-      }
-    });
-    $(function () { cle.model.accomodation.getNextPage(); });
+    try {
+      cle.initModule( $() );
+    }
+    catch ( e ) {
+      console.log(e);
+    }
+    cle.model.a.getNextPage();
   </script>
 
 </head>

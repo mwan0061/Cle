@@ -1,5 +1,5 @@
 /*
- * accomodation.js - module to provide accomodation list
+ * accommodation.js - module to provide a list
  */
  /*jslint         node   : true, continue : true,
   devel  : true, indent : 2,    maxerr   : 50,
@@ -12,8 +12,8 @@
 // ----------- BEGIN MODULE SCOPE VARIABLES ------------
 'use strict';
 var
-  emitNewerAccomodationList, emitOlderAccomodationList,
-  accomodationObj,
+  emitNewerAList, emitOlderAList,
+  accommodationObj,
   socket = require( 'socket.io' ),
   crud   = require( './crud'    );
 // ------------ END MODULE SCOPE VARIABLES -------------
@@ -22,16 +22,16 @@ var
 // --------------- END UTILITY METHODS -----------------
 
 // -------------- BEGIN PUBLIC METHODS -----------------
-accomodationObj = {
+accommodationObj = {
   connect : function ( server ) {
     var io = socket.listen( server );
 
-    io.of( '/accomodation' )
+    io.of( '/accommodation' )
       .on( 'connection', function ( socket ) {});
 
     return io;
   }
 };
 
-module.exports = accomodationObj;
+module.exports = accommodationObj;
 // --------------- END PUBLIC METHODS ------------------

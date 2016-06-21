@@ -24,7 +24,7 @@ var
   mongoDbUrl  = 'mongodb://localhost:27017/cle',
   dbHandle,
   validator   = JSV.createEnvironment(),
-  objTypeMap  = { 'accomodation' : {} };
+  objTypeMap  = { 'accommodation' : {} };
 // ------------ END MODULE SCOPE VARIABLES -------------
 
 // -------------- BEGIN UTILITY METHODS ----------------

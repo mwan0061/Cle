@@ -20,13 +20,13 @@ var
 // --------------- BEGIN UTILITY METHODS ---------------
 parseMongoObjectId = function ( query ) {
   var
-    searchExpr = /^ObjectId\([A-Fa-f0-9]{24}\)$/,
+    searchExpr = /^ObjectId\(([A-Fa-f0-9]{24})\)$/,
     key, val, test;
 
   for ( key in query ) {
     val = query[key];
     test = typeof val === 'string' ? val.match( searchExpr ) : null;
-    if ( test ) { query[key] = makeId( test[0] ); }
+    if ( test ) { query[key] = makeId( test[1] ); }
     else { query[key] = parseMongoObjectId ( query[key] ); }
   }
 
