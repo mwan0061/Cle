@@ -1,0 +1,2 @@
+/Users/mwan0061/anaconda/bin/scrapy crawl chnaus -o chnaus.json
+/Users/mwan0061/Developer/mongodb/bin/mongoimport --host localhost --port 27017 --db cle --collection accomodation --file ./chnaus.json --jsonArray
