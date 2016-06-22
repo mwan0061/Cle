@@ -69,7 +69,7 @@ cle.model.accommodation = (function () {
       id = typeof id === 'undefined' ? '000000000000000000000000' : id,
       url = '/api/accommodation/list/?limit=5&skip=0&sort=_id',
       query = { "_id" : { "$gt" : "ObjectId(" + id + ")" } },
-      event_name = 'cle-new-a-page-received',
+      event_name = 'cle-next-page-received',
 
       success = function( data ) {
         data = data.map( makeAccommodationObj );

@@ -54,7 +54,7 @@ var testGetAPage = function ( test ) {
   $defer.done( test.done );
 
   $t = $('<div/>');
-  $.gevent.subscribe( $t, 'cle-new-a-page-received', on_new_page );
+  $.gevent.subscribe( $t, 'cle-next-page-received', on_new_page );
   cle.initModule();
   cle.model.accommodation.getNextPage();
 }
