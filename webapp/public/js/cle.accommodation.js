@@ -27,11 +27,14 @@ cle.accommodation = (function () {
           + '<div class="cle-accommodation-list-box">'
           + '</div>'
         + '</div>',
-    },
 
-  	settable_map = {
-        $append_target : null,
+      settable_map : {
+        $append_target      : true,
+        accommodation_model : true
       },
+
+      accommodation_model : null
+    },
 
     stateMap  = {
       $append_target   : null,
@@ -42,7 +45,7 @@ cle.accommodation = (function () {
       slider_opened_px : 0
     },
 
-  	jqueryMap = {test:1},
+  	jqueryMap = {},
 
   	setJqueryMap,
   	configModule, initModule,
@@ -58,9 +61,10 @@ cle.accommodation = (function () {
   setJqueryMap = function () {
     var
       $append_target = stateMap.$append_target,
-      $slider        = $append_target.find( '.cle-accommodation' );
+      $slider        = $append_target.find( '.cle-accommodation-list' );
 
     jqueryMap = {
+      $slider   : $slider,
       $list_box : $slider.find( '.cle-accommodation-list-box' ),
       $window   : $(window)
     };
@@ -69,13 +73,14 @@ cle.accommodation = (function () {
   //---------------------- END DOM METHODS ---------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
-  onSwipeList = function ( event ) {
-    var start = event.swipestart, stop = event.swipestop;
-    console.log(event);
-    return false;
+  onSwipeList = function ( event, direction, distance, duration,
+                           fingerCount, fingerData ) {
+    if ( direction === 'up' ) { configMap.accommodation_model.getNextPage(); }
   };
 
-  onReceiveNextPage = function () {};
+  onReceiveNextPage = function ( event ) {
+    console.log( event );
+  };
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -101,7 +106,7 @@ cle.accommodation = (function () {
   //             unacceptable or missing arguments
   //
   configModule = function ( input_map ) {
-    spa.util.setConfigMap({
+    cle.util.setConfigMap({
       input_map    : input_map,
       settable_map : configMap.settable_map,
       config_map   : configMap
@@ -132,8 +137,6 @@ cle.accommodation = (function () {
     // load accommodation list slider html and jquery cache
     stateMap.$append_target = $append_target;
     $append_target.append( configMap.main_html );
-console.log('append_target', $append_target);
-console.log('main_html', configMap.main_html);
     setJqueryMap();
 
     // Have $list_box subscribe to jQuery global events
@@ -141,7 +144,7 @@ console.log('main_html', configMap.main_html);
     $.gevent.subscribe( $list_box, 'cle-next-page-received', onReceiveNextPage );
 
     // bind user input events
-    jqueryMap.$list_box.bind( 'swipe', onSwipeList );
+    jqueryMap.$list_box.swipe({ swipe : onSwipeList, threshold : 0 });
   };
   // End public method /initModule/
 

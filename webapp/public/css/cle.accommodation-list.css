@@ -7,9 +7,9 @@
   position      : absolute;
   bottom        : 0;
   right         : 0;
-  width         : 32em;
+  width         : 50em;
   height        : 50em;
-  background    : #fff;
+  background    : #888;
   border-radius : 0.5em 0 0 0;
   border-style  : solid;
   border-width  : thin 0 0 thin;
@@ -24,12 +24,12 @@
 .cle-accommodation-list-box {
   position      : absolute;
   top           : 0;
-  width         : 20em;
-  height        : 20em;
+  width         : 40em;
+  height        : 40em;
   line-height   : 1.8em;
   border-bottom : thin solid #888;
   cursor        : pointer;
-  background    : #888;
+  background    : #555;
   color         : white;
   font-family   : arial, helvetica, sans-serif;
   font-weight   : 800;

@@ -16,6 +16,9 @@ cle = (function () {
   var initModule = function ( $container ) {
     cle.data.initModule();
     cle.model.initModule();
+    cle.accommodation.configModule({
+      accommodation_model : cle.model.accommodation
+    });
     cle.accommodation.initModule( $container );
     //cle.shell.initModule( $container );
   };
