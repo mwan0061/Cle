@@ -28,6 +28,13 @@ cle.accommodation = (function () {
           + '</div>'
         + '</div>',
 
+      list_template : Handlebars.compile(
+        String()
+        + '{{#accommodations}}'
+          + '<p>{{description}}</p>'
+          + '<a href="{{url}}">link</a>'
+        + '{{/accommodations}}'),
+
       settable_map : {
         $append_target      : true,
         accommodation_model : true
@@ -79,7 +86,11 @@ cle.accommodation = (function () {
   };
 
   onReceiveNextPage = function ( event ) {
-    console.log( event );
+    jqueryMap.$list_box.append(
+      configMap.list_template(
+        { 'accommodations' : Array.from(arguments).slice( 1 ) }
+      )
+    );
   };
   //-------------------- END EVENT HANDLERS --------------------
 
